@@ -1,35 +1,42 @@
 {
   "name": "pixova_inventario",
   "version": "1.0.0",
-  "description": "Repositorio para subir el codigo el proyecto de la gestión de inventarios de Pixova",
+  "description": "Repositorio para subir el código del proyecto de gestión de inventarios de Pixova",
   "main": "index.js",
   "scripts": {
-    "build": "tsc", 
-    "start": "node dist/index.js", 
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migration:generate": "npm run typeorm migration:generate -- -d src/database/data-source.ts",
-    "migration:run": "npm run typeorm migration:run -- -d src/database/data-source.ts",
-    "migration:revert": "npm run typeorm migration:revert -- -d src/database/data-source.ts"
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/database/data-source.ts",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d dist/database/data-source.js",
+    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d dist/database/data-source.js",
+    "migration:show": "npx typeorm-ts-node-commonjs migration:show -d dist/database/data-source.js",
+    "migration:create": "npx typeorm-ts-node-commonjs migration:create src/database/migrations/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.8.1",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
+    "mysql2": "^3.9.0",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.8.0",
-    "typeorm": "^0.3.21"
+    "typeorm": "^0.3.21",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.13.9"
+    "@types/node": "^22.13.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }

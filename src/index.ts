@@ -5,7 +5,14 @@ import app from "./server"; // Importamos el servidor Express
 
 dotenv.config(); // Cargar configuración desde .env
 
-// Conectar la base de datos y levantar el servidor
+// Verificar que las variables de entorno se cargaron correctamente
+console.log("📌 Configuración de Base de Datos:");
+console.log("MYSQL_HOST:", process.env.MYSQL_HOST);
+console.log("MYSQL_PORT:", process.env.MYSQL_PORT);
+console.log("MYSQL_USER:", process.env.MYSQL_USER);
+console.log("MYSQL_PASSWORD:", process.env.MYSQL_PASSWORD);
+console.log("MYSQL_DATABASE:", process.env.MYSQL_DATABASE);
+
 AppDataSource.initialize()
     .then(() => {
         console.log("✅ Conexión a la base de datos establecida.");
@@ -15,5 +22,6 @@ AppDataSource.initialize()
         });
     })
     .catch((error) => {
+        
         console.error("❌ Error al conectar con la base de datos:", error);
     });

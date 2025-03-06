@@ -19,11 +19,13 @@ export class Producto {
     @JoinColumn({ name: "id_categoria" })
     categoria: Categoria;
 
-    @Column({ type: "int" })
+    @Column({ type: "int",name:"cantidad_total" })
     cantidad_total: number;
 
     @Column({ type: "decimal", precision: 10, scale: 2 })
     precio: number;
+
+    
 
     @ManyToOne(() => Proveedores, { nullable: true })
     @JoinColumn({ name: "id_proveedor" })

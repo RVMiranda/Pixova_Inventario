@@ -1,26 +1,23 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Acceso } from "../entities/Acceso";
-import { Usuarios } from "../entities/Usuarios";
-import { Roles } from "../entities/Roles";
-import { Categoria } from "../entities/Categoria";
-import { Marca } from "../entities/Marca";
-import { Proveedores } from "../entities/Proveedores";
-import { Producto } from "../entities/Producto";
-import { Cliente } from "../entities/Cliente";
-import { Reservas } from "../entities/Reservas";
+import dotenv from "dotenv";
+
+// Cargar variables de entorno
+dotenv.config();
+
+// Determinar el host adecuado
+const isLocal = process.env.RUNNING_ENV === "local"; // Agrega esto en el .env
+const dbHost = isLocal ? "localhost" : process.env.MYSQL_HOST || "mysql";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: process.env.DB_HOST || "localhost",
-    port: Number(process.env.DB_PORT) || 3306,
-    username: process.env.DB_USER || "root",
-    password: process.env.DB_PASS || "password",
-    database: process.env.DB_NAME || "inventario",
-    entities: [
-        Acceso, Usuarios, Roles, Categoria, Marca, 
-        Proveedores, Producto, Cliente, Reservas
-    ],
-    synchronize: true,  // Solo en desarrollo
-    logging: false,
+    host: dbHost,
+    port: Number(process.env.MYSQL_PORT) || 3306,
+    username: process.env.MYSQL_USER || "myuser",
+    password: process.env.MYSQL_PASSWORD || "mypassword",
+    database: process.env.MYSQL_DATABASE || "mydatabase",
+    entities: isLocal ? ["src/entities/*.ts"] : ["dist/entities/*.js"],
+    migrations: isLocal ? ["src/database/migrations/*.ts"] : ["dist/database/migrations/*.js"],
+    synchronize: false, // ❌ NO usar en producción
+    logging: true,
 });

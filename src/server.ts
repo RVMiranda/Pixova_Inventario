@@ -1,18 +1,21 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Importar rutas
 import usuariosRoutes from "./services/usuarios";
 
 const app = express();
 
-// Middlewares
-app.use(cors({
-    origin: "http://mi-frontend.com", //Configurar para permitir peticiones desde el frontend
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// Middlewares USAR EN PRODUCCION PARA SEGURIDAD
+//app.use(cors({
+//    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Carga desde .env
+//    methods: ["GET", "POST", "PUT", "DELETE"],
+//    allowedHeaders: ["Content-Type", "Authorization"]
+//}));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,23 +1,24 @@
-# Usa una imagen oficial de Node.js como base
+# Usa una imagen base de Node.js
 FROM node:18
 
-# Establece el directorio de trabajo dentro del contenedor
-WORKDIR /app
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
 
-# Copia solo los archivos necesarios para instalar dependencias
-COPY package*.json tsconfig.json ./
+# Copiar package.json y package-lock.json
+COPY package*.json ./
 
-# Instala las dependencias
+# Instalar las dependencias
 RUN npm install
 
-# Copia toda la aplicación, incluyendo `src/`
+# Copiar el resto de la aplicación al contenedor
 COPY . .
 
-# Compilar TypeScript a JavaScript antes de ejecutar el servidor
+# Asegurar que TypeScript se compila antes de ejecutar la aplicación
 RUN npm run build
 
-# Expone el puerto en el que corre la aplicación
+# Exponer el puerto en el que la aplicación va a escuchar
 EXPOSE 3000
 
-# Comando para iniciar la aplicación en producción
-CMD ["node", "dist/index.js"]
+# Comando para ejecutar la aplicación en producción
+CMD ["sh", "-c", "node dist/index.js"]
+

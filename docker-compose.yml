@@ -1,14 +1,25 @@
 version: '3.8'
+
 services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
     env_file:
-      - .env  # Carga automáticamente el archivo .env
-    environment:
-      - NODE_ENV=production
-    command: ["node", "dist/index.js"]
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_network
+    command: --default-authentication-plugin=mysql_native_password
+
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  my_network:
+    driver: bridge

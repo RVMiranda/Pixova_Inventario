@@ -8,6 +8,9 @@ export class Cotizaciones {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ length: 100, name: "id_cliente" })
+    cliendId: number
+
     @ManyToOne(() => Cliente, { nullable: true })
     @JoinColumn({ name: "id_cliente" })
     cliente: Cliente;
@@ -20,11 +23,11 @@ export class Cotizaciones {
 
     @ManyToOne(() => EstatusCotizaciones, { nullable: true })
     @JoinColumn({ name: "id_estatus" })
-    estatus: EstatusCotizaciones;
+    estatus: EstatusCotizaciones[];
 
     @ManyToOne(() => Lugares, { nullable: true })
     @JoinColumn({ name: "id_lugar" })
-    lugar: Lugares;
+    lugar: Lugares[];
 
     @Column({ unique: true, length: 50 })
     folio: string;

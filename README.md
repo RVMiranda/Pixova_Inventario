@@ -18,13 +18,22 @@ Repositorio para subir el codigo el proyecto de la gestión de inventarios de Pi
 - Para ejecutar el servidor desde dist/index.js (para producción):
     > npm run start
 
+### Migraciones Instrucciones
+Nota: es necesario construir el proyecto utilizando npm run build.
+
 - Para crear una nueva migración en src/database/migrations/:
-    > npm run migration:generate
+    > npm run migration:generate -- src/database/migrations/NombreDeLaMigracion
 
 - Para ejecutar las migraciones y aplica cambios en la base de datos:
     > npm run migration:run
 
+- Para mostrar que migraciones están pendientes o aplicadas.
+    > npm run migration:show
+
 - Para revertir la última migración aplicada:
     > npm run migration:revert
+
+- Para crear una migración manualmente sin generar código automáticamente.
+    > npm run migration:create
 
 ### Proyecto desarrollado por: NahualCompany
